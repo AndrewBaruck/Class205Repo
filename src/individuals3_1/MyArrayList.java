@@ -3,6 +3,8 @@ package individuals3_1;
 // Complete the implementation of your MyArrayList class in this file
 
 
+import java.util.NoSuchElementException;
+
 public class MyArrayList implements MyList {
     // Implement the required fields and methods here
 
@@ -12,27 +14,66 @@ public class MyArrayList implements MyList {
 
     @Override
     public void addToEnd(Object o) {
+        size++;
+        if(size > capacity){
+            makeCapacity( 2 * size);
+        }
+        for (int i = 0; i<size; size++){
 
-    }
+                storage[size-1] = o;
+
+                break;
+            }
+
+        }
+
 
     @Override
     public void insertAt(int index, Object o) {
 
+        if(index < 0 || index > size){
+            throw new NoSuchElementException();
+        }
+        size++;
+        if(size == capacity){
+            makeCapacity(capacity * 2);
+        }
+        for(int i = storage.length-1; i > index; i--){
+            storage[i] = storage[i-1];
+        }
+        storage[index] = o;
+
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     @Override
     public void removeAt(int index) {
+        if(index < 0 || index >= size){
+            throw new NoSuchElementException();
+        }
+
+        size--;
+        for(int i = index; i < size; i++){
+            storage[i] = storage[i + 1];
+        }
 
     }
 
     @Override
     public Object getAt(int index) {
-        return null;
+        if(index >= size || index < 0){
+            throw new NoSuchElementException();
+        }
+        return storage[index];
+
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 
     // Do not alter the code below
@@ -43,13 +84,33 @@ public class MyArrayList implements MyList {
 
     //Below are the methods that I have added
 
-    public static void makeCapacity(int minCapacity){
+    public void makeCapacity(int minCapacity){
 
+        if(minCapacity < size || minCapacity == capacity){
+
+        }
+        else{
+            if(minCapacity < 8){
+                capacity = 8;
+            }
+            else{
+                capacity = minCapacity;
+
+            }
+
+            Object[] storage = new Object[capacity];
+            Object[] junkDrawer = this.storage;
+
+            for(int i = 0; i < junkDrawer.length; i++){
+                storage[i] = junkDrawer[i];
+            }
+            this.storage = storage;
+        }
 
     }
 
-    public static void trimExcess(){
-
+    public void trimExcess(){
+        makeCapacity(size - 1);
 
     }
 
