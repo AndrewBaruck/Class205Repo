@@ -1,14 +1,17 @@
 package Qork;
 
-public class Qork {    public static void main(String[] args) {
-    int[] x = {4,6,7,7,3};
-    int n = x.length;
+import org.w3c.dom.Node;
 
-    for (int j = n-1; j > 0; j--)
-    x[ j ] = x[ j-1 ];
+class node {
+    public Object data = null;
+    public Node next = null;
+}
 
-    for (int j = n-1; j > 1; j--)
-    System.out.print(x[ j ]);
+public class Qork {    public static void main(String[] args) {Node head = new Node(); // first Node
+    head.next = new Node(); // second Node
+    head.next.next = new Node(); // third node
+    Node x = new Node(); // node to insert
+    _____________________ //
 }
 
 }
